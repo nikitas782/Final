@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "843761715485",
+    "firebase_url": "https://finalappuni-default-rtdb.firebaseio.com",
+    "project_id": "finalappuni",
+    "storage_bucket": "finalappuni.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843761715485:android:9bc5e315b16c78dd2c39f4",
+        "android_client_info": {
+          "package_name": "com.nikitastzouk.afinal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFlJAQFEyxQJTux1PPI2m-CYhtjWQsGzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843761715485:android:c62b21bf0c1648b82c39f4",
+        "android_client_info": {
+          "package_name": "com.nikitastzouk.finalapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFlJAQFEyxQJTux1PPI2m-CYhtjWQsGzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
