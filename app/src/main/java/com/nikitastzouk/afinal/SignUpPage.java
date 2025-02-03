@@ -1,10 +1,7 @@
 package com.nikitastzouk.afinal;
-import static android.content.ContentValues.TAG;
-
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -15,52 +12,56 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity {
-
-    EditText emailText,passwordText;
+public class SignUpPage extends AppCompatActivity {
+    EditText emailText,passwordText,usernameText;
     FirebaseAuth auth;
     FirebaseUser user;
+    DatabaseReference databaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_sign_up_page);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        emailText = findViewById(R.id.editTextEmail);
-        passwordText = findViewById(R.id.editTextTextPassword);
+        emailText = findViewById(R.id.editTextTextEmailAddress);
+        passwordText = findViewById(R.id.editTextTextPassword2);
+        usernameText = findViewById(R.id.editTextText);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference("accounts");
+
     }
 
-
-
-    public void Login (View view){
-
-
-        if (!emailText.getText().toString().isEmpty() && !passwordText.getText().toString().isEmpty()){
-            auth.signInWithEmailAndPassword(emailText.getText().toString(),passwordText.getText().toString())
+    public void signup(View view){
+        String email = emailText.getText().toString();
+        String password = passwordText.getText().toString();
+        String username = usernameText.getText().toString();
+        if (!email.isEmpty() && !password.isEmpty() && !username.isEmpty()){
+            auth.createUserWithEmailAndPassword(emailText.getText().toString(),passwordText.getText().toString())
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                                 user = auth.getCurrentUser();
-                                startActivity(new Intent(MainActivity.this,MainPage.class));
-
+                                if (user != null) {
+                                    String uid = user.getUid();
+                                    saveUserToDatabase(uid, username, email);
+                                }
+                                startActivity(new Intent(SignUpPage.this,MainPage.class));
                             }else {
                                 showMessage("Error",task.getException().getLocalizedMessage());
                             }
@@ -70,16 +71,18 @@ public class MainActivity extends AppCompatActivity {
             showMessage("Error","Please provide data to the fields");
         }
 
-        //auth.signOut();
-
     }
-
-    public void signup(View view){
-        startActivity(new Intent(MainActivity.this,SignUpPage.class));
+    private void saveUserToDatabase(String uid, String username, String email) {
+        Accounts newAcc = new Accounts(username, email);
+        databaseReference.child(uid).setValue(newAcc)
+                .addOnSuccessListener(aVoid -> {
+                    // Δεδομένα αποθηκεύτηκαν επιτυχώς
+                })
+                .addOnFailureListener(e -> {
+                    showMessage("Error", "Failed to save user data: " + e.getMessage());
+                });
     }
     void showMessage(String title, String message){
         new AlertDialog.Builder(this).setTitle(title).setMessage(message).setCancelable(true).show();
     }
-    // Function to fetch user data from Realtime Database
-
 }
