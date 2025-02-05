@@ -65,8 +65,10 @@ public class MainPage extends AppCompatActivity {
                     String release_date = productSnapshot.child("RELEASE_DATE").getValue(String.class);
                     String description = productSnapshot.child("DESCRIPTION").getValue(String.class);
                     String location = productSnapshot.child("LOCATION").getValue(String.class);
-                    if (name != null && price != null && release_date != null && description != null && location != null) {
-                        productsList.add(new Products(name,price,description,release_date,location));
+                    Double lat = productSnapshot.child("LAT").getValue(Double.class);
+                    Double lng = productSnapshot.child("LNG").getValue(Double.class);
+                    if (name != null && price != null && release_date != null && description != null && location != null && lat != null && lng != null) {
+                        productsList.add(new Products(name,price,description,release_date,location,lat,lng));
                     }
                 }
                 adapter.notifyDataSetChanged();
