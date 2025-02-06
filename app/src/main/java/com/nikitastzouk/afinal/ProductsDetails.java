@@ -1,8 +1,10 @@
 package com.nikitastzouk.afinal;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -35,6 +37,7 @@ public class ProductsDetails extends AppCompatActivity {
         String description = getIntent().getStringExtra("description");
         String releasedate = getIntent().getStringExtra("release_date");
         String location = getIntent().getStringExtra("location");
+        String id = getIntent().getStringExtra("id");
 
         nameTextView.setText(name);
         priceTextView.setText("$" + price);
@@ -45,4 +48,18 @@ public class ProductsDetails extends AppCompatActivity {
 
 
     }
-}
+
+    public void buy (View view){
+        String name = getIntent().getStringExtra("name");
+        String id= getIntent().getStringExtra("id");
+        double price = getIntent().getDoubleExtra("price", 0.0);
+
+        if (name != null && id != null) {
+            Products product = new Products(name, price,null,null,null,0.0,0.0,id);
+            CartManager.addToCart(product);
+
+            // Navigate to cart activity
+            Intent intent = new Intent(ProductsDetails.this, MainPage.class);
+            startActivity(intent);
+    }
+}}
