@@ -1,5 +1,6 @@
 package com.nikitastzouk.afinal;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -16,13 +17,14 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class Settings extends AppCompatActivity {
 
-    TextView textView_firstname, textView_lastname;
+    TextView textView_username;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     Switch switcher;
     boolean nightMODE;
     SeekBar fontseekBar;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,19 +37,18 @@ public class Settings extends AppCompatActivity {
             return insets;
         });
 
-        textView_firstname = findViewById(R.id.textViewFirsname);
-        textView_lastname = findViewById(R.id.textView4);
+        textView_username = findViewById(R.id.textViewFirsname);
         switcher = findViewById(R.id.switch1);
         fontseekBar = findViewById(R.id.seekBar);
 
         sharedPreferences = getSharedPreferences("mypref", MODE_PRIVATE);
 
-        String firstname = sharedPreferences.getString("first_name", null);
-        String lastname = sharedPreferences.getString("last_name", null);
+        String username = sharedPreferences.getString("username", null);
 
-        if (firstname != null || lastname != null) {
-            textView_firstname.setText("First Name - " + firstname);
-            textView_lastname.setText("Last Name - " + lastname);
+
+        if (username != null) {
+            textView_username.setText("Username - " + username);
+
         }
 
 
@@ -79,8 +80,7 @@ public class Settings extends AppCompatActivity {
         });
 
         int saveFontsize = sharedPreferences.getInt("font_size",20);
-        textView_firstname.setTextSize(saveFontsize);
-        textView_lastname.setTextSize(saveFontsize);
+        textView_username.setTextSize(saveFontsize);
         switcher.setTextSize(saveFontsize);
         fontseekBar.setProgress(saveFontsize,true);
 
@@ -88,8 +88,7 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-                textView_firstname.setTextSize(progress);
-                textView_lastname.setTextSize(progress);
+                textView_username.setTextSize(progress);
                 switcher.setTextSize(progress);
 
 

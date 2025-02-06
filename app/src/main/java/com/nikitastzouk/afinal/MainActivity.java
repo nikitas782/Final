@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     Button button,button2;
     FirebaseAuth auth;
     FirebaseUser user;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,28 @@ public class MainActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                                 user = auth.getCurrentUser();
+                                String userID = user.getUid();
+                                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("accounts").child(userID);
+
+                                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists()) {
+                                            String username = snapshot.child("username").getValue(String.class);
+                                            SharedPreferences sharedPreferences = getSharedPreferences("mypref", MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("username",username);
+                                            editor.apply();
+
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        Log.e("FirebaseError", "Failed to fetch user data", error.toException());
+                                    }
+                                });
                                 startActivity(new Intent(MainActivity.this,MainPage.class));
 
                             }else {

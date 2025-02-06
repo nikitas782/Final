@@ -67,10 +67,6 @@ public class SignUpPage extends AppCompatActivity {
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
         String username = usernameText.getText().toString();
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("first_name",firstnameText.getText().toString());
-        editor.putString("last_name",lastnameText.getText().toString());
-        editor.apply();
         if (!email.isEmpty() && !password.isEmpty() && !username.isEmpty()){
             auth.createUserWithEmailAndPassword(emailText.getText().toString(),passwordText.getText().toString())
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

@@ -9,4 +9,5 @@
     <string name="Username">Username</string>
     <string name="Text1">Hello, log in or create an account</string>
     <string name="password">Password</string>
+    <string name="place_order">Place Order</string>
 </resources>
