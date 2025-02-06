@@ -1,6 +1,8 @@
 package com.nikitastzouk.afinal;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -10,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class ProductsDetails extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,8 @@ public class ProductsDetails extends AppCompatActivity {
         descriptionTextView.setText(description);
         releasedateTextView.setText(releasedate);
         locationTextView.setText(location);
+
+
 
     }
 }

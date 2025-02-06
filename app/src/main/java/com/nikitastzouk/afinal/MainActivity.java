@@ -2,16 +2,22 @@ package com.nikitastzouk.afinal;
 import static android.content.ContentValues.TAG;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -28,12 +34,22 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
+    TextView textView2;
     EditText emailText,passwordText;
+    Button button,button2;
     FirebaseAuth auth;
     FirebaseUser user;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPreferences = getSharedPreferences("mypref", MODE_PRIVATE);
+        boolean nightMODE = sharedPreferences.getBoolean("night", false);
+        if (nightMODE) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -43,8 +59,20 @@ public class MainActivity extends AppCompatActivity {
         });
         emailText = findViewById(R.id.editTextEmail);
         passwordText = findViewById(R.id.editTextTextPassword);
+        button = findViewById(R.id.button);
+        button2 = findViewById(R.id.button2);
+        textView2 = findViewById(R.id.textView2);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        int saveFontsize = sharedPreferences.getInt("font_size",20);
+        emailText.setTextSize(saveFontsize);
+        passwordText.setTextSize(saveFontsize);
+        button.setTextSize(saveFontsize);
+        button2.setTextSize(saveFontsize);
+        textView2.setTextSize(saveFontsize);
+
+
+
     }
 
 

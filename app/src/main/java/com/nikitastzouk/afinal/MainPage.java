@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,10 +14,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.View;
+import android.widget.Switch;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -37,10 +41,13 @@ import java.util.List;
 
 public class MainPage extends AppCompatActivity implements LocationListener {
 
+
     LocationManager locationManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_page);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -122,14 +129,12 @@ public class MainPage extends AppCompatActivity implements LocationListener {
 
 
 
-
-
     }
     private void userLocation(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
 
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10000,10,this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,10,this);
 
         }
     }
@@ -197,7 +202,7 @@ public class MainPage extends AppCompatActivity implements LocationListener {
         sendNotification(productName, location,price,release_date,description,index);  // Send the notification for this product
 
         // Schedule the next notification after 10 seconds
-        new CountDownTimer(10000, 10000) {  // Delay of 10 seconds
+        new CountDownTimer(0, 0) {  // Delay of 10 seconds
             @Override
             public void onTick(long millisUntilFinished) {
                 // You don't need to do anything on tick, it just ensures the delay is in place
@@ -240,6 +245,11 @@ public class MainPage extends AppCompatActivity implements LocationListener {
         }
 
         notificationManager.notify(index, builder.build());
+
+    }
+    public void settings(View view){
+        Intent intent = new Intent(this,Settings.class);
+        startActivity(intent);
 
     }
 

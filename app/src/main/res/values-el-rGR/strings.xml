@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Login">Σύνδεση</string>
+    <string name="light_dark">Φωτεινό/Σκοτεινό</string>
+    <string name="Username">Όνομα χρήστη</string>
+    <string name="Text1">Χαίρεται,συνδεθείτε ή δημιουργήστε λογαριασμό</string>
+    <string name="SignUp">Εγγραφή</string>
+    <string name="lastname">Επώνυμο</string>
+    <string name="firstname">Όνομα</string>
+    <string name="buy">ΑΓΟΡΑ</string>
+    <string name="password">Συνθηματικό</string>
+</resources>
