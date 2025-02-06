@@ -1,8 +1,10 @@
 package com.nikitastzouk.afinal;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
@@ -22,10 +24,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpPage extends AppCompatActivity {
-    EditText emailText,passwordText,usernameText;
+    EditText emailText,passwordText,usernameText,firstnameText,lastnameText;
+
+    Button button3;
     FirebaseAuth auth;
     FirebaseUser user;
     DatabaseReference databaseReference;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +45,21 @@ public class SignUpPage extends AppCompatActivity {
         emailText = findViewById(R.id.editTextTextEmailAddress);
         passwordText = findViewById(R.id.editTextTextPassword2);
         usernameText = findViewById(R.id.editTextText);
+        firstnameText = findViewById(R.id.editTextText2);
+        lastnameText = findViewById(R.id.editTextText3);
+        button3 = findViewById(R.id.button3);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("accounts");
+        sharedPreferences = getSharedPreferences("mypref",MODE_PRIVATE);
+        int saveFontsize = sharedPreferences.getInt("font_size",20);
+        emailText.setTextSize(saveFontsize);
+        passwordText.setTextSize(saveFontsize);
+        usernameText.setTextSize(saveFontsize);
+        firstnameText.setTextSize(saveFontsize);
+        lastnameText.setTextSize(saveFontsize);
+        button3.setTextSize(saveFontsize);
+
 
     }
 
@@ -50,6 +67,10 @@ public class SignUpPage extends AppCompatActivity {
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
         String username = usernameText.getText().toString();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("first_name",firstnameText.getText().toString());
+        editor.putString("last_name",lastnameText.getText().toString());
+        editor.apply();
         if (!email.isEmpty() && !password.isEmpty() && !username.isEmpty()){
             auth.createUserWithEmailAndPassword(emailText.getText().toString(),passwordText.getText().toString())
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

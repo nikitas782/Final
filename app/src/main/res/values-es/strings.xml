@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Final</string>
+    <string name="Login">Acceso</string>
+    <string name="light_dark">Claro/Oscuro</string>
+    <string name="Username">" Nombre de usuario"</string>
+    <string name="Text1">Hola, inicia sesión o crea una cuenta</string>
+    <string name="SignUp">Inscribirse</string>
+    <string name="lastname">Apellido</string>
+    <string name="firstname">" Nombre de pila"</string>
+    <string name="buy">COMPRAR</string>
+    <string name="password">Contraseña</string>
+</resources>

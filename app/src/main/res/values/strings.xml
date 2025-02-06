@@ -1,7 +1,12 @@
 <resources>
-    <string name="app_name">Final</string>
+    <string name="app_name" translatable="false">Final</string>
     <string name="Login">Login</string>
-    <string name="Username">Username</string>
-    <string name="Text1">Hello, login or create an account</string>
     <string name="SignUp">SignUp</string>
+    <string name="lastname">Last Name</string>
+    <string name="firstname">First Name</string>
+    <string name="buy">BUY</string>
+    <string name="light_dark">Light/Dark</string>
+    <string name="Username">Username</string>
+    <string name="Text1">Hello, log in or create an account</string>
+    <string name="password">Password</string>
 </resources>
