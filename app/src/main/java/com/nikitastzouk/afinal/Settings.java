@@ -1,5 +1,6 @@
 package com.nikitastzouk.afinal;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +24,7 @@ public class Settings extends AppCompatActivity {
     boolean nightMODE;
     SeekBar fontseekBar;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,18 +38,17 @@ public class Settings extends AppCompatActivity {
         });
 
         textView_firstname = findViewById(R.id.textViewFirsname);
-        textView_lastname = findViewById(R.id.textView4);
         switcher = findViewById(R.id.switch1);
         fontseekBar = findViewById(R.id.seekBar);
 
         sharedPreferences = getSharedPreferences("mypref", MODE_PRIVATE);
 
-        String firstname = sharedPreferences.getString("first_name", null);
-        String lastname = sharedPreferences.getString("last_name", null);
+        String username = sharedPreferences.getString("username", null);
 
-        if (firstname != null || lastname != null) {
-            textView_firstname.setText("First Name - " + firstname);
-            textView_lastname.setText("Last Name - " + lastname);
+
+        if (username != null) {
+            textView_firstname.setText("Username - " + username);
+
         }
 
 

@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="placeOrder"
-            android:text="Place Order" />
+            android:text="@string/place_order" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

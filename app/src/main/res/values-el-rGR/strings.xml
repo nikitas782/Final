@@ -9,4 +9,5 @@
     <string name="firstname">Όνομα</string>
     <string name="buy">ΑΓΟΡΑ</string>
     <string name="password">Συνθηματικό</string>
+    <string name="place_order">Ολοκλήρωση παραγγελίας</string>
 </resources>
