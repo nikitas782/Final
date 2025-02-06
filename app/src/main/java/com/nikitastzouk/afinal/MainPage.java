@@ -81,6 +81,7 @@ public class MainPage extends AppCompatActivity implements LocationListener {
             intent.putExtra("description",products.getDescription());
             intent.putExtra("release_date",products.getRelease_date());
             intent.putExtra("location",products.getLocation());
+            intent.putExtra("id",products.getId());
             startActivity(intent);
         });
 
@@ -101,8 +102,9 @@ public class MainPage extends AppCompatActivity implements LocationListener {
                     String location = productSnapshot.child("LOCATION").getValue(String.class);
                     Double lat = productSnapshot.child("LAT").getValue(Double.class);
                     Double lng = productSnapshot.child("LNG").getValue(Double.class);
+                    String id = productSnapshot.child("ID").getValue(String.class);
                     if (name != null && price != null && release_date != null && description != null && location != null && lat != null && lng != null) {
-                        productsList.add(new Products(name,price,description,release_date,location,lat,lng));
+                        productsList.add(new Products(name,price,description,release_date,location,lat,lng,id));
                     }
                 }
                 adapter.notifyDataSetChanged();
@@ -251,6 +253,10 @@ public class MainPage extends AppCompatActivity implements LocationListener {
         Intent intent = new Intent(this,Settings.class);
         startActivity(intent);
 
+    }
+    public void viewcart(View view){
+        Intent intent = new Intent(this,CartActivity.class);
+        startActivity(intent);
     }
 
 }
