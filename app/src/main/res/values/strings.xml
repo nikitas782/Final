@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">Final</string>
     <string name="Login">Login</string>
     <string name="SignUp">SignUp</string>
     <string name="lastname">Last Name</string>
@@ -10,4 +9,5 @@
     <string name="Text1">Hello, log in or create an account</string>
     <string name="password">Password</string>
     <string name="place_order">Place Order</string>
+    <string name="app_name" translatable="false">UnipiPLIShopping</string>
 </resources>
