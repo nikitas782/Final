@@ -49,6 +49,7 @@ public class ProductsDetails extends AppCompatActivity {
 
     }
 
+    //add product to cart
     public void buy (View view){
         String name = getIntent().getStringExtra("name");
         String id= getIntent().getStringExtra("id");

@@ -63,6 +63,7 @@ public class SignUpPage extends AppCompatActivity {
 
     }
 
+    //create user with auth
     public void signup(View view){
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
@@ -89,6 +90,7 @@ public class SignUpPage extends AppCompatActivity {
         }
 
     }
+    //save the user on firedb
     private void saveUserToDatabase(String uid, String username, String email) {
         Accounts newAcc = new Accounts(username, email);
         databaseReference.child(uid).setValue(newAcc)

@@ -62,7 +62,7 @@ public class Settings extends AppCompatActivity {
             switcher.setChecked(false);
         }
 
-        switcher.setOnClickListener(new View.OnClickListener() {
+        switcher.setOnClickListener(new View.OnClickListener() { //for light/dark mode
             @Override
             public void onClick(View view) {
                 if (nightMODE) {
@@ -84,7 +84,7 @@ public class Settings extends AppCompatActivity {
         switcher.setTextSize(saveFontsize);
         fontseekBar.setProgress(saveFontsize,true);
 
-        fontseekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        fontseekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {//for zoom
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 

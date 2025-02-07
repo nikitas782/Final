@@ -83,10 +83,10 @@ public class MainPage extends AppCompatActivity implements LocationListener {
             intent.putExtra("location",products.getLocation());
             intent.putExtra("id",products.getId());
             startActivity(intent);
-        });
+        });// passes the products info to productDetails page
 
 
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);//we show in the recycleview the products
 
         // Initialize Firebase and fetch data
         DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference("products");
@@ -124,7 +124,7 @@ public class MainPage extends AppCompatActivity implements LocationListener {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 123);
             return;
         }
-            userLocation();
+            userLocation();//ask for permission to get location
 
 
 
@@ -148,7 +148,7 @@ public class MainPage extends AppCompatActivity implements LocationListener {
         Log.d("LocationUpdate", "New Location: Lat=" + location.getLatitude() + ", Lng=" + location.getLongitude());
 
         nearStores(userLat,userLng);
-    }
+    }//check for nearby stores with void nearStores
 
     private void nearStores(double userLat, double userLng){
         DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference("products");
@@ -175,9 +175,9 @@ public class MainPage extends AppCompatActivity implements LocationListener {
 
                     }
                 }
-                sendNotificationsWithDelay(nearbyProducts,0);
+                sendNotificationsWithList(nearbyProducts,0);
 
-            }
+            }//if we find products on a near store we add all of the products in a list and notify the user for every item
 
 
             @Override
@@ -189,7 +189,7 @@ public class MainPage extends AppCompatActivity implements LocationListener {
 
 
     }
-    private void sendNotificationsWithDelay(List<DataSnapshot> products, int index) {
+    private void sendNotificationsWithList(List<DataSnapshot> products, int index) {
         if (index >= products.size()) {
             return;  // Stop if we've sent all notifications
         }
@@ -203,20 +203,21 @@ public class MainPage extends AppCompatActivity implements LocationListener {
 
         sendNotification(productName, location,price,release_date,description,index);  // Send the notification for this product
 
-        // Schedule the next notification after 10 seconds
+
         new CountDownTimer(0, 0) {  // Delay of 10 seconds
             @Override
             public void onTick(long millisUntilFinished) {
-                // You don't need to do anything on tick, it just ensures the delay is in place
+
             }
 
             @Override
             public void onFinish() {
-                // Once the delay finishes, send the next notification
-                sendNotificationsWithDelay(products, index + 1);
+                // send the next notification
+                sendNotificationsWithList(products, index + 1);
             }
         }.start();    }
     private void sendNotification(String productName, String location, double price, String release_date, String description, int index) {
+
         Intent intent = new Intent(this, ProductsDetails.class);
         intent.putExtra("name", productName);
         intent.putExtra("price",price);
@@ -248,7 +249,7 @@ public class MainPage extends AppCompatActivity implements LocationListener {
 
         notificationManager.notify(index, builder.build());
 
-    }
+    }//create the notification window after asking for permission
     public void settings(View view){
         Intent intent = new Intent(this,Settings.class);
         startActivity(intent);

@@ -48,6 +48,7 @@ public class CartActivity extends AppCompatActivity {
 
     }
 
+    //create the order for the selected products and the connected user
     public void placeOrder(View view) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = auth.getCurrentUser();
@@ -75,6 +76,7 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
+    //save order details to our firebase
     private void saveOrderToFirebase(String customerName) {
        if ( adapter.getItemCount() != 0){
         DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("orders");

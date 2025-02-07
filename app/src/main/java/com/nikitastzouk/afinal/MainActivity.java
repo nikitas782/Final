@@ -82,14 +82,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (!emailText.getText().toString().isEmpty() && !passwordText.getText().toString().isEmpty()){
-            auth.signInWithEmailAndPassword(emailText.getText().toString(),passwordText.getText().toString())
+            auth.signInWithEmailAndPassword(emailText.getText().toString(),passwordText.getText().toString()) //authentication realtimedb with email,password that is given
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                                 user = auth.getCurrentUser();
                                 String userID = user.getUid();
-                                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("accounts").child(userID);
+                                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("accounts").child(userID); // get account from db with Uid from authentication
 
                                 userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                                             SharedPreferences sharedPreferences = getSharedPreferences("mypref", MODE_PRIVATE);
                                             SharedPreferences.Editor editor = sharedPreferences.edit();
                                             editor.putString("username",username);
-                                            editor.apply();
+                                            editor.apply();//save preferences for the username
 
 
                                         }
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
-                                        Log.e("FirebaseError", "Failed to fetch user data", error.toException());
+                                        Log.e("FirebaseError", "Failed to fetch user data", error.toException()); //error if wrong inputs
                                     }
                                 });
                                 startActivity(new Intent(MainActivity.this,MainPage.class));
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
         }else {
-            showMessage("Error","Please provide data to the fields");
+            showMessage("Error","Please provide data to the fields");//error if no data provided
         }
 
         //auth.signOut();
