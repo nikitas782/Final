@@ -59,7 +59,7 @@ public class ProductsDetails extends AppCompatActivity {
             Products product = new Products(name, price,null,null,null,0.0,0.0,id);
             CartManager.addToCart(product);
 
-            // Navigate to cart activity
+            // Navigate to main activity
             Intent intent = new Intent(ProductsDetails.this, MainPage.class);
             startActivity(intent);
     }

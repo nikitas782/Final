@@ -30,6 +30,7 @@ public class CartActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CartAdapter adapter;
     private Button placeOrderButton;
+    List<Products> cartItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +42,10 @@ public class CartActivity extends AppCompatActivity {
         placeOrderButton = findViewById(R.id.placeOrderButton);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        List<Products> cartItems = CartManager.getCart();
+        cartItems = CartManager.getCart();
         adapter = new CartAdapter(cartItems);
         recyclerView.setAdapter(adapter);
+
 
 
     }
@@ -88,7 +90,10 @@ public class CartActivity extends AppCompatActivity {
                 .addOnSuccessListener(aVoid -> Log.d("Order", "Order placed successfully!"))
                 .addOnFailureListener(e -> Log.e("Order", "Failed to place order", e));
         Toast.makeText(getApplicationContext(), "Order placed successfully", Toast.LENGTH_SHORT).show();
-    }else {
+        adapter.clearAdapter();
+        recyclerView.setAdapter(null);
+        CartManager.clearCart();
+       }else {
            Toast.makeText(getApplicationContext(), "Empty cart", Toast.LENGTH_SHORT).show();
 
        }
